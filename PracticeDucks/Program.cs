@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 namespace PracticeDucks
 {
-
-
   class Hunter
   {
     public int min;
