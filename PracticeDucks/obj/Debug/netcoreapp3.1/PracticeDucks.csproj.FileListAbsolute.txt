@@ -1,0 +1,13 @@
+C:\Users\PC\source\repos\PracticeDucks\PracticeDucks\bin\Debug\netcoreapp3.1\PracticeDucks.exe
+C:\Users\PC\source\repos\PracticeDucks\PracticeDucks\bin\Debug\netcoreapp3.1\PracticeDucks.deps.json
+C:\Users\PC\source\repos\PracticeDucks\PracticeDucks\bin\Debug\netcoreapp3.1\PracticeDucks.runtimeconfig.json
+C:\Users\PC\source\repos\PracticeDucks\PracticeDucks\bin\Debug\netcoreapp3.1\PracticeDucks.runtimeconfig.dev.json
+C:\Users\PC\source\repos\PracticeDucks\PracticeDucks\bin\Debug\netcoreapp3.1\PracticeDucks.dll
+C:\Users\PC\source\repos\PracticeDucks\PracticeDucks\bin\Debug\netcoreapp3.1\PracticeDucks.pdb
+C:\Users\PC\source\repos\PracticeDucks\PracticeDucks\obj\Debug\netcoreapp3.1\PracticeDucks.csprojAssemblyReference.cache
+C:\Users\PC\source\repos\PracticeDucks\PracticeDucks\obj\Debug\netcoreapp3.1\PracticeDucks.AssemblyInfoInputs.cache
+C:\Users\PC\source\repos\PracticeDucks\PracticeDucks\obj\Debug\netcoreapp3.1\PracticeDucks.AssemblyInfo.cs
+C:\Users\PC\source\repos\PracticeDucks\PracticeDucks\obj\Debug\netcoreapp3.1\PracticeDucks.csproj.CoreCompileInputs.cache
+C:\Users\PC\source\repos\PracticeDucks\PracticeDucks\obj\Debug\netcoreapp3.1\PracticeDucks.dll
+C:\Users\PC\source\repos\PracticeDucks\PracticeDucks\obj\Debug\netcoreapp3.1\PracticeDucks.pdb
+C:\Users\PC\source\repos\PracticeDucks\PracticeDucks\obj\Debug\netcoreapp3.1\PracticeDucks.genruntimeconfig.cache
