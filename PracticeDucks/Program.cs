@@ -60,6 +60,11 @@ namespace PracticeDucks
         Console.WriteLine($"{(shift ? "\t\t" : "\t")}{properties[i, 0]}: {properties[i, 1]}");
     }
 
+    public void getShortInfo(bool shift = false)
+    {
+      Console.WriteLine($"{(shift ? "\t" : "")}Утка #{id}");
+    }
+
     public object Clone()
     {
       return MemberwiseClone();
@@ -223,9 +228,10 @@ namespace PracticeDucks
     public void getInfo()
     {
       Console.WriteLine($"Ферма {title} (ID: {id}):");
+      Console.WriteLine($"Поймано всего: {lake.ducks.Count}");
       foreach(Duck duck in lake.ducks)
       {
-        duck.getInfo(true);
+        duck.getShortInfo(true);
       }
     }
   }
@@ -285,7 +291,7 @@ namespace PracticeDucks
       };
 
       for (int i = 0; i < lakes.Count; i++)
-        lakes[i].getInfo();
+        lakes[i].getFullInfo();
 
       Console.WriteLine("Нажмите кнопку для перевода в симуляцию...");
       Console.ReadKey();
