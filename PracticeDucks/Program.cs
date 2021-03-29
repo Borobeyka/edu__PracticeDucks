@@ -222,10 +222,10 @@ namespace PracticeDucks
 
     public void getInfo()
     {
-      Console.WriteLine($"Ферма {title} (ID: {id})");
+      Console.WriteLine($"Ферма {title} (ID: {id}):");
       foreach(Duck duck in lake.ducks)
       {
-        duck.getInfo();
+        duck.getInfo(true);
       }
     }
   }
@@ -234,10 +234,8 @@ namespace PracticeDucks
   {
     static void Main(string[] args)
     {
-      //int COUNT_LAKES = 3;
-      //int COUNT_FARMS = 1;
-      int COUNT_DAYS = 9;
-      int COUNT_DUCKS = 97;
+      const int COUNT_DAYS = 9;
+      const int COUNT_DUCKS = 97;
 
       List<Duck> kinds = new List<Duck>
       {
@@ -296,7 +294,7 @@ namespace PracticeDucks
       do
       {
         Console.Clear();
-        Console.WriteLine($"Сейчас {currentDay} день охоты, осталось {COUNT_DAYS - currentDay} дней.");
+        Console.WriteLine($"Сейчас {currentDay} день охоты, осталось {COUNT_DAYS - currentDay} дней.\n");
 
         int rndFarmID = rnd.Next(0, farms.Count);
         Farm currentFarmID = farms[rndFarmID];
@@ -305,9 +303,9 @@ namespace PracticeDucks
         int rndLakeID = rnd.Next(0, lakes.Count);
         Lake currentLakeID = lakes[rndLakeID];
         if (currentLakeID.getDucksCount() == 0) continue;
-        Console.WriteLine($"Охотники пришли на озеро {currentLakeID.title} (ID: {currentLakeID.id})");
+        Console.WriteLine($"Охотники пришли на озеро {currentLakeID.title} (ID: {currentLakeID.id})\n");
 
-        currentLakeID.getInfo(); // Озеро было
+        //currentLakeID.getInfo(); // Озеро было
 
         int[] rndHuntersCount = new int[farms[rndFarmID].hunters.Count];
         for(int i = 0; i < farms[rndFarmID].hunters.Count; i++)
@@ -329,8 +327,9 @@ namespace PracticeDucks
           }
           Console.WriteLine();
         }
-        //currentFarmID.getInfo(); // Farm info
-        currentLakeID.getInfo(); // Озеро стало
+        Console.WriteLine();
+        currentFarmID.getInfo(); // Farm info
+        //currentLakeID.getInfo(); // Озеро стало
 
 
         Console.ReadLine();
