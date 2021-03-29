@@ -30,8 +30,11 @@ namespace PracticeDucks
 
   class Duck : ICloneable
   {
+    public static int TOTAL_KINDS = 0;
+
     public int id;
     public string kind;
+    public int kindID;
     public string skill;
     public int homeID;
     public int lastHomeID;
@@ -42,6 +45,7 @@ namespace PracticeDucks
       this.kind = kind;
       this.skill = skill;
       properties = props;
+      kindID = ++TOTAL_KINDS;
       lastHomeID = this.homeID = homeID;
 
       //Console.WriteLine($"Duck #{id} created...");
@@ -50,7 +54,7 @@ namespace PracticeDucks
     public void getInfo(bool shift = false)
     {
       Console.WriteLine($"{(shift ? "\t" : "")}Утка #{id}");
-      Console.WriteLine($"{(shift ? "\t\t" : "\t")}Вид: {kind}");
+      Console.WriteLine($"{(shift ? "\t\t" : "\t")}Вид: {kind} (ID: {kindID})");
       Console.WriteLine($"{(shift ? "\t\t" : "\t")}Умеет: {skill}");
       for(int i = 0; i < properties.GetLength(0); i++)
         Console.WriteLine($"{(shift ? "\t\t" : "\t")}{properties[i, 0]}: {properties[i, 1]}");
@@ -181,8 +185,8 @@ namespace PracticeDucks
       List<Lake> lakes = new List<Lake>
       {
         new Lake("Тоба", new int[] { 1, 2, 3 }),
-        new Lake("Танганьика", new int[] { 3, 4, 5 }),
-        new Lake("Пос", new int[] { 6, 7, 8 }),
+        new Lake("Танганьика", new int[] { 4, 5, 6 }),
+        new Lake("Пос", new int[] { 7, 8, 9 }),
       };
 
       Random rnd = new Random();
@@ -192,12 +196,10 @@ namespace PracticeDucks
         while (process)
         {
           int lakeID = rnd.Next(0, lakes.Count);
-          //Console.WriteLine($"Random lake id {lakeID}");
           int kindID = rnd.Next(0, kinds.Count);
-          //Console.WriteLine($"Random kind id {kindID}");
           for (int j = 0; j < lakes[lakeID].allowKinds.Count; j++)
           {
-            if (lakes[lakeID].allowKinds[j] == kindID)
+            if (lakes[lakeID].allowKinds[j] - 1 == kindID)
             {
               lakes[lakeID].addDuck(kinds[kindID]);
               process = false;
@@ -207,21 +209,17 @@ namespace PracticeDucks
         }
       }
 
-
-      for(int i = 0; i < lakes.Count; i++)
-        lakes[i].getFullInfo();
-
-      lakes[2].getDuckInfoByID(27);
-
-
       List<Farm> farms = new List<Farm>
       {
         new Farm("MUBAYEZ", new int[,] { { 1, 9 }, { 3, 9 } }),
       };
 
-      
+      for (int i = 0; i < lakes.Count; i++)
+        lakes[i].getFullInfo();
 
-      /*int currentDay = 1;
+      Console.ReadLine();
+
+      int currentDay = 1;
       do
       {
         Console.Clear();
@@ -234,7 +232,7 @@ namespace PracticeDucks
       } while ((COUNT_DAYS - currentDay++) > 0 && Farm.TOTAL_DUCKS != COUNT_DUCKS);
 
       Console.Clear();
-      Console.WriteLine("Симуляция закончена...");*/
+      Console.WriteLine("Симуляция закончена...");
 
 
       /*string[,] props = {
