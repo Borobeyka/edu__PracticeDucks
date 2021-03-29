@@ -302,16 +302,17 @@ namespace PracticeDucks
         Farm currentFarmID = farms[rndFarmID];
         Console.WriteLine($"Сегодня охотятся охотники с фермы {farms[rndFarmID].title} (ID: {farms[rndFarmID].id})");
 
-        int rndLakeID = rnd.Next(0, 0);
+        int rndLakeID = rnd.Next(0, lakes.Count);
         Lake currentLakeID = lakes[rndLakeID];
-        if (currentLakeID.getDucksCount() == 0) break;
+        if (currentLakeID.getDucksCount() == 0) continue;
         Console.WriteLine($"Охотники пришли на озеро {currentLakeID.title} (ID: {currentLakeID.id})");
+
+        currentLakeID.getInfo(); // Озеро было
 
         int[] rndHuntersCount = new int[farms[rndFarmID].hunters.Count];
         for(int i = 0; i < farms[rndFarmID].hunters.Count; i++)
         {
           rndHuntersCount[i] = farms[rndFarmID].hunters[i].randomHuntCount();
-          //currentLakeID.getInfo();
           Console.Write($"Охотник #{i + 1} хочет поймать {rndHuntersCount[i]} уток.\nИ он ловит уток с ID: ");
           for(int j = 0; j < rndHuntersCount[i] && currentLakeID.ducks.Count > 0; j++)
           {
@@ -328,7 +329,8 @@ namespace PracticeDucks
           }
           Console.WriteLine();
         }
-        currentFarmID.getInfo();
+        //currentFarmID.getInfo(); // Farm info
+        currentLakeID.getInfo(); // Озеро стало
 
 
         Console.ReadLine();
