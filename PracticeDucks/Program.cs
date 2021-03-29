@@ -289,9 +289,6 @@ namespace PracticeDucks
       for (int i = 0; i < lakes.Count; i++)
         lakes[i].getInfo();
 
-      //lakes[1].getDuckCountBySkill();
-
-
       Console.WriteLine("Нажмите кнопку для перевода в симуляцию...");
       Console.ReadKey();
 
@@ -305,13 +302,10 @@ namespace PracticeDucks
         Farm currentFarmID = farms[rndFarmID];
         Console.WriteLine($"Сегодня охотятся охотники с фермы {farms[rndFarmID].title} (ID: {farms[rndFarmID].id})");
 
-        //int rndLakeID = rnd.Next(0, lakes.Count);
         int rndLakeID = rnd.Next(0, 0);
         Lake currentLakeID = lakes[rndLakeID];
         if (currentLakeID.getDucksCount() == 0) break;
         Console.WriteLine($"Охотники пришли на озеро {currentLakeID.title} (ID: {currentLakeID.id})");
-
-        //currentLakeID.getFullInfo();
 
         int[] rndHuntersCount = new int[farms[rndFarmID].hunters.Count];
         for(int i = 0; i < farms[rndFarmID].hunters.Count; i++)
@@ -322,7 +316,6 @@ namespace PracticeDucks
           for(int j = 0; j < rndHuntersCount[i] && currentLakeID.ducks.Count > 0; j++)
           {
             int rndDuckID;
-            //Console.WriteLine($"Количество уток в озере: {currentLakeID.ducks.Count}");
             while (true)
             {
               rndDuckID = rnd.Next(1, currentLakeID.getDuckMaxID() + 1);
@@ -335,8 +328,6 @@ namespace PracticeDucks
           }
           Console.WriteLine();
         }
-        //currentLakeID.getFullInfo();
-
         currentFarmID.getInfo();
 
 
