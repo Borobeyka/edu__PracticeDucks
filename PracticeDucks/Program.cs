@@ -116,6 +116,36 @@ namespace PracticeDucks
       Console.WriteLine($"Утка #{id} не существует в озере #{this.id}");
     }
 
+    public bool getDuckByID(int id)
+    {
+      foreach(Duck duck in ducks)
+      {
+        if (duck.id == id)
+          return true;
+      }
+      return false;
+    }
+
+    public Duck getDuckObjectByID(int id)
+    {
+      foreach (Duck duck in ducks)
+        if (duck.id == id)
+          return duck;
+      return null;
+    }
+
+    public void removeDuckByID(int id)
+    {
+      for(int i = 0; i < ducks.Count; i++)
+      {
+        if (ducks[i].id == id)
+        {
+          ducks.Remove(ducks[i]);
+          return;
+        }
+      }
+    }
+
     public void getInfo()
     {
       Console.WriteLine($"Озеро {title} ({id})");
@@ -132,6 +162,34 @@ namespace PracticeDucks
     public int getDucksCount()
     {
       return ducks.Count;
+    }
+
+    public void getDuckCountBySkill()
+    {
+      Console.WriteLine($"Озеро {title} (ID: {id})");
+      Dictionary<string, int> skills = new Dictionary<string, int>();
+      foreach(Duck duck in ducks)
+      {
+        if (skills.ContainsKey(duck.skill))
+        {
+          skills.TryGetValue(duck.skill, out int count);
+          skills.Remove(duck.skill);
+          skills.Add(duck.skill, count + 1);
+        }
+        else skills.Add(duck.skill, 1);
+      }
+      foreach (var skill in skills)
+        Console.WriteLine($"\tУмеет {skill.Key}: {skill.Value}");
+    }
+
+    public int getDuckMaxID()
+    {
+      int max = 0;
+      foreach(Duck duck in ducks)
+      {
+        if (duck.id > max) max = duck.id;
+      }
+      return max;
     }
 
   }
@@ -155,6 +213,20 @@ namespace PracticeDucks
         this.hunters.Add(new Hunter(hunters[i, 0], hunters[i, 1]));
 
       //Console.WriteLine($"Farm #{id} created...");
+    }
+
+    public void addDuck(Duck duck)
+    {
+      lake.ducks.Add(duck);
+    }
+
+    public void getInfo()
+    {
+      Console.WriteLine($"Ферма {title} (ID: {id})");
+      foreach(Duck duck in lake.ducks)
+      {
+        duck.getInfo();
+      }
     }
   }
 
@@ -215,9 +287,13 @@ namespace PracticeDucks
       };
 
       for (int i = 0; i < lakes.Count; i++)
-        lakes[i].getFullInfo();
+        lakes[i].getInfo();
 
-      Console.ReadLine();
+      //lakes[1].getDuckCountBySkill();
+
+
+      Console.WriteLine("Нажмите кнопку для перевода в симуляцию...");
+      Console.ReadKey();
 
       int currentDay = 1;
       do
@@ -225,7 +301,43 @@ namespace PracticeDucks
         Console.Clear();
         Console.WriteLine($"Сейчас {currentDay} день охоты, осталось {COUNT_DAYS - currentDay} дней.");
 
+        int rndFarmID = rnd.Next(0, farms.Count);
+        Farm currentFarmID = farms[rndFarmID];
+        Console.WriteLine($"Сегодня охотятся охотники с фермы {farms[rndFarmID].title} (ID: {farms[rndFarmID].id})");
 
+        //int rndLakeID = rnd.Next(0, lakes.Count);
+        int rndLakeID = rnd.Next(0, 0);
+        Lake currentLakeID = lakes[rndLakeID];
+        if (currentLakeID.getDucksCount() == 0) break;
+        Console.WriteLine($"Охотники пришли на озеро {currentLakeID.title} (ID: {currentLakeID.id})");
+
+        //currentLakeID.getFullInfo();
+
+        int[] rndHuntersCount = new int[farms[rndFarmID].hunters.Count];
+        for(int i = 0; i < farms[rndFarmID].hunters.Count; i++)
+        {
+          rndHuntersCount[i] = farms[rndFarmID].hunters[i].randomHuntCount();
+          //currentLakeID.getInfo();
+          Console.Write($"Охотник #{i + 1} хочет поймать {rndHuntersCount[i]} уток.\nИ он ловит уток с ID: ");
+          for(int j = 0; j < rndHuntersCount[i] && currentLakeID.ducks.Count > 0; j++)
+          {
+            int rndDuckID;
+            //Console.WriteLine($"Количество уток в озере: {currentLakeID.ducks.Count}");
+            while (true)
+            {
+              rndDuckID = rnd.Next(1, currentLakeID.getDuckMaxID() + 1);
+              if (currentLakeID.getDuckByID(rndDuckID) || currentLakeID.ducks.Count == 0) break;
+            }
+            currentFarmID.addDuck(currentLakeID.getDuckObjectByID(rndDuckID));
+
+            currentLakeID.removeDuckByID(rndDuckID);
+            Console.Write($"{rndDuckID} ");
+          }
+          Console.WriteLine();
+        }
+        //currentLakeID.getFullInfo();
+
+        currentFarmID.getInfo();
 
 
         Console.ReadLine();
@@ -233,23 +345,6 @@ namespace PracticeDucks
 
       Console.Clear();
       Console.WriteLine("Симуляция закончена...");
-
-
-      /*string[,] props = {
-        { "Имя", "Фигня" },
-      };
-      List<Duck> kinds = new List<Duck>
-      {
-        new Duck(kind: "Чирок-свистунок", skill: "плавать", props: props),
-        new Duck(kind: "Капский чирок", skill: "бегать", props: props, homeID: -1),
-      };
-      Lake lake = new Lake("Тоба");
-
-      lake.addDuck(kinds[0]);
-      lake.addDuck(kinds[1]);
-      lake.getInfo();
-      Console.WriteLine(lake.ducks[1].homeID);*/
     }
   }
-
 }
