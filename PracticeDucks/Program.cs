@@ -37,17 +37,6 @@ namespace PracticeDucks
     public int lastHomeID;
     public string[,] properties;
 
-    /*public Duck(string kind, string skill, string[,] props, int homeID = 0) 
-    {
-      this.kind = kind;
-      this.skill = skill;
-      for(int i = 0; i < props.GetLength(0); i++)
-        properties.Add(props[0, 0], props[0, 1]);
-      lastHomeID = this.homeID = homeID;
-      id = ++TOTAL_DUCKS;
-
-      Console.WriteLine($"Duck #{id} created...");
-    }*/
     public Duck(string kind, string skill, string[,] props, int homeID = 0) 
     {
       this.kind = kind;
