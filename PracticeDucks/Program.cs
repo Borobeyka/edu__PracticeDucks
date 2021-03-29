@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * С какой вероятностью должны происходить события
+ * Сколько уток сбегает в день
+ */
+
+using System;
 using System.Collections.Generic;
 
 namespace PracticeDucks
