@@ -105,20 +105,22 @@ namespace PracticeDucks
     public int id;
     public string title;
     public List<int> allowKinds = new List<int>();
+    public string[,] skillsForJailbreak;
+    public Dictionary<string, string> methods = new Dictionary<string, string>();
     public List<Duck> ducks = new List<Duck>();
 
-    public Lake(string title, int[] kindsID)
+    public Lake(string title, int[] kindsID, string[,] skills)
     {
       this.title = title;
       foreach (int id in kindsID)
         allowKinds.Add(id);
+      skillsForJailbreak = skills;
       id = ++TOTAL_LAKES;
     }
 
     public void addDuck(Duck duck)
     {
       Duck tempDuck = (Duck)duck.Clone();
-      //tempDuck.id = ducks.Count + 1;
       tempDuck.id = ++TOTAL_DUCKS;
       if(tempDuck.homeID == -1) tempDuck.homeID = id;
       ducks.Add(tempDuck);
@@ -171,8 +173,13 @@ namespace PracticeDucks
       {
         if (duck.id == id)
         {
-          if (String.Compare(duck.skill, "плавать") == 0 && String.Compare(duck.getAttributeValue("Груз"), "") == 0) return true;
-          if (String.Compare(duck.skill, "летать") == 0 && String.Compare(duck.getAttributeValue("Крылья"), "") == 0) return true;
+          for(int i = 0; i < skillsForJailbreak.GetLength(0); i++)
+          {
+            if (String.Compare(duck.skill, skillsForJailbreak[i, 0]) == 0 && String.Compare(duck.getAttributeValue(skillsForJailbreak[i, 1]), "") == 0)
+              return true;
+          }
+          //if (String.Compare(duck.skill, "плавать") == 0 && String.Compare(duck.getAttributeValue("Груз"), "") == 0) return true;
+          //if (String.Compare(duck.skill, "летать") == 0 && String.Compare(duck.getAttributeValue("Крылья"), "") == 0) return true;
         }
       }
       return false;
@@ -257,11 +264,11 @@ namespace PracticeDucks
     public Lake lake;
     public List<Hunter> hunters = new List<Hunter>();
 
-    public Farm(string title, int[,] hunters)
+    public Farm(string title, int[,] hunters, string[,] skills)
     {
       this.title = title;
       id = ++TOTAL_FARMS;
-      lake = new Lake($"{this.title}", new int[] { });
+      lake = new Lake($"{this.title}", new int[] { }, skills);
       for (int i = 0; i < hunters.GetLength(0); i++)
         this.hunters.Add(new Hunter(hunters[i, 0], hunters[i, 1]));
     }
@@ -311,16 +318,21 @@ namespace PracticeDucks
 
       List<Lake> lakes = new List<Lake>
       {
-        new Lake("Тоба", new int[] { 1, 2, 3 }),
-        new Lake("Танганьика", new int[] { 4, 5, 6 }),
-        new Lake("Пос", new int[] { 7, 8, 9 }),
+        new Lake("Тоба", new int[] { 1, 2, 3 }, new string[,] {  }),
+        new Lake("Танганьика", new int[] { 4, 5, 6 }, new string[,] { }),
+        new Lake("Пос", new int[] { 7, 8, 9 }, new string[,] { }),
       };
 
       List<Farm> farms = new List<Farm>
       {
-        new Farm("MUBAYEZ", new int[,] { { 1, 9 }, { 3, 9 } }),
-        new Farm("MALINKA", new int[,] { { 2, 4 }, { 1, 5 } }),
+        new Farm("MUBAYEZ", new int[,] { { 1, 9 }, { 3, 9 } }, new string[,] { { "плавать", "Груз", "установлен" } }),
+        new Farm("MALINKA", new int[,] { { 2, 4 }, { 1, 5 } }, new string[,] { { "плавать", "Груз", "установлен" }, { "летать", "Крылья", "подрезаны" } }),
       };
+      /*List<Farm> farms = new List<Farm> // ДЛЯ ПРОВЕРКИ УТКИ С КАКИМИ СКИЛАМИ МОГУТ СБЕЖАТЬ
+      {
+        new Farm("MUBAYEZ", new int[,] { { 1, 9 }, { 3, 9 } }, new string[,] { { "", "", "" } }),
+        new Farm("MALINKA", new int[,] { { 2, 4 }, { 1, 5 } }, new string[,] { { "", "", "" } }),
+      };*/
 
       Random rnd = new Random();
       for (int i = 0; i < COUNT_DUCKS; i++)
@@ -387,7 +399,7 @@ namespace PracticeDucks
           Console.WriteLine();
         }
         currentFarmID.getInfo();
-        Console.WriteLine();
+        Console.WriteLine("\n--------------------------------------\n");
         
         
 
@@ -428,8 +440,6 @@ namespace PracticeDucks
           }
           farms[i].getInfo();
           Console.WriteLine();
-
-          //Console.WriteLine($"С фермы {farms[i].title} (ID: {farms[i].id}) сбегают {rndJailBreakDucks} уток.");
         }
 
 
