@@ -26,7 +26,7 @@ namespace PracticeDucks
     public int randomHuntCount()
     {
       Random random = new Random();
-      return random.Next(min, max);
+      return random.Next(min, max + 1);
     }
 
   }
