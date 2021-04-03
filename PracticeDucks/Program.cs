@@ -170,18 +170,10 @@ namespace PracticeDucks
     public bool isCanJailbreak(int id)
     {
       foreach (Duck duck in ducks)
-      {
         if (duck.id == id)
-        {
           for(int i = 0; i < skillsForJailbreak.GetLength(0); i++)
-          {
             if (String.Compare(duck.skill, skillsForJailbreak[i, 0]) == 0 && String.Compare(duck.getAttributeValue(skillsForJailbreak[i, 1]), "") == 0)
               return true;
-          }
-          //if (String.Compare(duck.skill, "плавать") == 0 && String.Compare(duck.getAttributeValue("Груз"), "") == 0) return true;
-          //if (String.Compare(duck.skill, "летать") == 0 && String.Compare(duck.getAttributeValue("Крылья"), "") == 0) return true;
-        }
-      }
       return false;
     }
 
@@ -276,10 +268,9 @@ namespace PracticeDucks
     public void addDuck(Duck duck)
     {
       if (duck.lastFarmID != -1)
-      {
-        if(String.Compare(duck.skill, "плавать") == 0) duck.addAttribute("Груз", "установлен");
-        else if(String.Compare(duck.skill, "летать") == 0) duck.addAttribute("Крылья", "подрезаны");
-      }
+        for(int i = 0; i < lake.skillsForJailbreak.GetLength(0); i++)
+          if (String.Compare(duck.skill, lake.skillsForJailbreak[i, 0]) == 0)
+            duck.addAttribute(lake.skillsForJailbreak[i, 1], lake.skillsForJailbreak[i, 2]);
       duck.lastFarmID = id;
       lake.ducks.Add(duck);
       TOTAL_DUCKS++;
@@ -325,7 +316,7 @@ namespace PracticeDucks
 
       List<Farm> farms = new List<Farm>
       {
-        new Farm("MUBAYEZ", new int[,] { { 1, 9 }, { 3, 9 } }, new string[,] { { "плавать", "Груз", "установлен" } }),
+        new Farm("MUBAYEZ", new int[,] { { 1, 9 }, { 3, 9 } }, new string[,] { { "бегать", "Груз", "установлен" } }),
         new Farm("MALINKA", new int[,] { { 2, 4 }, { 1, 5 } }, new string[,] { { "плавать", "Груз", "установлен" }, { "летать", "Крылья", "подрезаны" } }),
       };
       /*List<Farm> farms = new List<Farm> // ДЛЯ ПРОВЕРКИ УТКИ С КАКИМИ СКИЛАМИ МОГУТ СБЕЖАТЬ
