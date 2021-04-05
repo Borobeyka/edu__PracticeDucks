@@ -346,9 +346,9 @@ namespace PracticeDucks
       }
 
       for (int i = 0; i < lakes.Count; i++)
-        lakes[i].getFullInfo();
+        lakes[i].getInfo();
 
-      Console.WriteLine("Нажмите кнопку для перевода в симуляцию...");
+      Console.Write("Нажмите кнопку для перевода в симуляцию...");
       Console.ReadKey();
 
       int currentDay = 1;
