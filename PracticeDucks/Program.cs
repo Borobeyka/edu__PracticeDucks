@@ -200,7 +200,7 @@ namespace PracticeDucks
 
     public void getInfo()
     {
-      Console.WriteLine($"Озеро {title} ({id})");
+      Console.WriteLine($"Озеро {title} (ID: {id})");
       Console.WriteLine($"\tКоличество уток: {getDucksCount()}");
     }
 
@@ -401,7 +401,7 @@ namespace PracticeDucks
           int countCanJailbreak = currentFarmLake.getCountCanJailbreak();
           if (countCanJailbreak == 0)
           {
-            Console.WriteLine("Ни одна утка не сбежала...\n");
+            Console.WriteLine("\tНи одна утка не сбежала...\n");
             continue;
           }
           int rndJailBreakDucks = rnd.Next(1, countCanJailbreak);
@@ -413,7 +413,7 @@ namespace PracticeDucks
               randomDuckID = rnd.Next(1, currentFarmLake.getDuckMaxID() + 1);
               if ((currentFarmLake.getDuckByID(randomDuckID) && currentFarmLake.isCanJailbreak(randomDuckID)) || currentFarmLake.ducks.Count == 0) break;
             }
-            Console.Write($"Сбегает утка с ID: {randomDuckID}");
+            Console.Write($"\tСбегает утка с ID: {randomDuckID}");
             Duck duck = currentFarmLake.getDuckObjectByID(randomDuckID);
             if (duck.homeID != 0)
             {
