@@ -43,6 +43,8 @@ namespace PracticeDucks
     public int lastFarmID = -1;
     public string[,] properties;
 
+    public int days;
+
     public Duck(string kind, string skill, string[,] props, int homeID = 0) 
     {
       this.kind = kind;
@@ -95,6 +97,24 @@ namespace PracticeDucks
       return MemberwiseClone();
     }
 
+    public virtual bool isHero()
+    {
+      return false;
+    }
+
+  }
+
+  class HeroDuck : Duck
+  {
+    public HeroDuck(string kind, string skill, string[,] props, int homeID = 0, int days = 0) : base(kind, skill, props, homeID)
+    {
+      this.days = days;
+    }
+
+    public override bool isHero()
+    {
+      return true;
+    }
   }
 
   class Lake
@@ -289,6 +309,8 @@ namespace PracticeDucks
   {
     static void Main(string[] args)
     {
+      bool heroDuck = false;
+      int heroDuckLakeID = 0;
       const int COUNT_DAYS = 9;
       const int COUNT_DUCKS = 97;
 
@@ -371,11 +393,11 @@ namespace PracticeDucks
         //currentLakeID.getInfo(); // Озеро было
 
         int[] rndHuntersCount = new int[farms[rndFarmID].hunters.Count];
-        for(int i = 0; i < farms[rndFarmID].hunters.Count; i++)
+        for (int i = 0; i < farms[rndFarmID].hunters.Count; i++)
         {
           rndHuntersCount[i] = farms[rndFarmID].hunters[i].randomHuntCount();
           Console.Write($"Охотник #{i + 1} хочет поймать {rndHuntersCount[i]} уток.\n\tИ он ловит уток с ID: ");
-          for(int j = 0; j < rndHuntersCount[i] && currentLakeID.ducks.Count > 0; j++)
+          for (int j = 0; j < rndHuntersCount[i] && currentLakeID.ducks.Count > 0; j++)
           {
             int rndDuckID;
             while (true)
@@ -390,6 +412,50 @@ namespace PracticeDucks
           Console.WriteLine();
         }
         currentFarmID.getInfo();
+
+
+        int chance = rnd.Next(0, 15);
+        Console.WriteLine(chance);
+        if (chance == 0 && !heroDuck )
+        {
+          heroDuckLakeID = rnd.Next(0, lakes.Count);
+          lakes[heroDuckLakeID].addDuck(new HeroDuck(kind: "ГеройКряк", skill: "", days: 2, props: new string[,] { }));
+          Console.WriteLine($"На озере {lakes[heroDuckLakeID].title} (ID: {lakes[heroDuckLakeID].id}) появился ГеройКряк\nПопуляция уток сокращена вдвое");
+          heroDuck = true;
+        }
+
+
+        if(heroDuck)
+        {
+          for(int i = 0; i < lakes[heroDuckLakeID].ducks.Count; i++)
+          {
+            var duck = lakes[heroDuckLakeID].ducks[i];
+            if (duck is HeroDuck && duck.isHero() && duck.days-- > 0)
+            {
+              foreach(Lake lake in lakes)
+              {
+                int o = (lake.ducks.Count / 2);
+                for (int j = 0; j < o; j++)
+                  lake.removeDuckByID(lake.ducks[j].id);
+              }
+              foreach (Farm farm in farms)
+              {
+                int o = (farm.lake.ducks.Count / 2);
+                for (int j = 0; j < o; j++)
+                  farm.lake.removeDuckByID(farm.lake.ducks[j].id);
+              }
+
+              if (duck.days == 0)
+              {
+                Console.WriteLine($"Утка {duck.kind} уходит в закат...");
+                lakes[heroDuckLakeID].removeDuckByID(duck.id);
+                heroDuck = false;
+              }
+            }
+          }
+        }
+
+
         Console.WriteLine("\n--------------------------------------\n");
         
         
