@@ -298,8 +298,8 @@ namespace PracticeDucks
   {
     static void Main(string[] args)
     {
-      bool heroDuck = false;
-      int heroDuckLakeID = 0;
+      //bool heroDuck = false;
+      //int heroDuckLakeID = 0;
       const int COUNT_DAYS = 19;
       const int COUNT_DUCKS = 97;
 
@@ -405,7 +405,7 @@ namespace PracticeDucks
         currentFarmID.getInfo();
 
 
-        int chance = rnd.Next(0, 3);
+        /*int chance = rnd.Next(0, 3);
         if (chance == 0 && !heroDuck)
         {
           heroDuckLakeID = rnd.Next(0, lakes.Count);
@@ -451,7 +451,7 @@ namespace PracticeDucks
               }
             }
           }
-        }
+        }*/
 
         Console.WriteLine("\n____________________________________________________\n");
         
