@@ -1,3 +1,5 @@
-![First screen](https://github.com/Borobeyka/PracticeDucks/blob/master/images/1.JPG)
-![First day hunting](https://github.com/Borobeyka/PracticeDucks/blob/master/images/2.JPG)
-![Second day hunting](https://github.com/Borobeyka/PracticeDucks/blob/master/images/3.JPG)
+![First screen](https://github.com/Borobeyka/PracticeDucks/blob/master/images/1.jpg)
+![1 day hunting](https://github.com/Borobeyka/PracticeDucks/blob/master/images/2.jpg)
+![2 day hunting](https://github.com/Borobeyka/PracticeDucks/blob/master/images/3.jpg)
+![3 day hunting](https://github.com/Borobeyka/PracticeDucks/blob/master/images/4.jpg)
+![4 day hunting](https://github.com/Borobeyka/PracticeDucks/blob/master/images/5.jpg)
