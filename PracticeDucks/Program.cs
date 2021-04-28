@@ -180,9 +180,15 @@ namespace PracticeDucks
     {
       foreach (Duck duck in ducks)
         if (duck.id == id)
-          for(int i = 0; i < skillsForJailbreak.GetLength(0); i++)
-            if (String.Compare(duck.skill, skillsForJailbreak[i, 0]) == 0 && String.Compare(duck.getAttributeValue(skillsForJailbreak[i, 1]), "") == 0)
-              return true;
+          for (int i = 0; i < skillsForJailbreak.GetLength(0); i++)
+            if (String.Compare(duck.skill, skillsForJailbreak[i, 0]) == 0 &&
+              String.Compare(duck.getAttributeValue(skillsForJailbreak[i, 1]), "") == 0)
+            {
+              if (String.Compare(skillsForJailbreak[i, 3], "1") == 0 && duck.homeID != 0)
+                return true;
+              else if (String.Compare(skillsForJailbreak[i, 3], "0") == 0 && duck.homeID == 0)
+                return true;
+            }
       return false;
     }
 
@@ -300,7 +306,7 @@ namespace PracticeDucks
     {
       //bool heroDuck = false;
       //int heroDuckLakeID = 0;
-      const int COUNT_DAYS = 19;
+      const int COUNT_DAYS = 9;
       const int COUNT_DUCKS = 97;
 
       List<Duck> kinds = new List<Duck>
@@ -327,14 +333,8 @@ namespace PracticeDucks
 
       List<Farm> farms = new List<Farm>
       {
-        new Farm("MUBAYEZ", new int[,] { { 1, 9 }, { 3, 9 } }, new string[,] { { "бегать", "Груз", "установлен" } }),
-        new Farm("MALINKA", new int[,] { { 2, 4 }, { 1, 5 } }, new string[,] { { "плавать", "Груз", "установлен" }, { "летать", "Крылья", "подрезаны" } }),
+        new Farm("MUBAYEZ", new int[,] { { 1, 9 }, { 3, 9 } }, new string[,] { { "плавать", "Лапы", "подрезаны", "0" } }),
       };
-      /*List<Farm> farms = new List<Farm> // ДЛЯ ПРОВЕРКИ УТКИ С КАКИМИ СКИЛАМИ МОГУТ СБЕЖАТЬ
-      {
-        new Farm("MUBAYEZ", new int[,] { { 1, 9 }, { 3, 9 } }, new string[,] { { "", "", "" } }),
-        new Farm("MALINKA", new int[,] { { 2, 4 }, { 1, 5 } }, new string[,] { { "", "", "" } }),
-      };*/
 
       Random rnd = new Random();
       for (int i = 0; i < COUNT_DUCKS; i++)
@@ -379,8 +379,6 @@ namespace PracticeDucks
         if (currentLakeID.getDucksCount() == 0) continue;
         Console.WriteLine($"Охотники пришли на озеро {currentLakeID.title} (ID: {currentLakeID.id})\n");
 
-        //currentLakeID.getInfo(); // Озеро было
-
         int[] rndHuntersCount = new int[farms[rndFarmID].hunters.Count];
         for (int i = 0; i < farms[rndFarmID].hunters.Count; i++)
         {
@@ -403,7 +401,6 @@ namespace PracticeDucks
           Console.WriteLine();
         }
         currentFarmID.getInfo();
-
 
         /*int chance = rnd.Next(0, 3);
         if (chance == 0 && !heroDuck)
@@ -440,7 +437,7 @@ namespace PracticeDucks
                     farms[i].lake.removeDuckByID(duckTemp.id);
                     Farm.TOTAL_DUCKS--;
                   }
-                  farms[i].lake.getInfo();
+                  //farms[i].lake.getInfo();
                 }
 
                 if (--d.days <= 0)
@@ -493,8 +490,6 @@ namespace PracticeDucks
           farms[i].getInfo();
           Console.WriteLine();
         }
-
-
 
         Console.Write("НАЖМИТЕ ЛЮБУЮ КНОПКУ ДЛЯ СЛЕДУЮЩЕГО ДЕЙСТВИЯ...");
         Console.ReadLine();
