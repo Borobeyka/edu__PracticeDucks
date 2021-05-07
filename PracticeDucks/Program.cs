@@ -333,7 +333,7 @@ namespace PracticeDucks
 
       List<Farm> farms = new List<Farm>
       {
-        new Farm("MUBAYEZ", new int[,] { { 1, 9 }, { 3, 9 } }, new string[,] { { "плавать", "Лапы", "подрезаны", "0" } }),
+        new Farm("MUBAYEZ", new int[,] { { 1, 9 }, { 3, 9 } }, new string[,] { { "плавать", "Лапы", "установлен груз", "0" } }),
       };
 
       Random rnd = new Random();
