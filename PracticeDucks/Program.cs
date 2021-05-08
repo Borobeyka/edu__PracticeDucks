@@ -77,7 +77,8 @@ namespace PracticeDucks
       tempArr[propertiesLength, 0] = attr;
       tempArr[propertiesLength, 1] = value;
       properties = tempArr;
-      Console.Write($"(утке {id} {value} {attr.ToLower()}) ");
+      //Console.Write($"(утке {id} {value} {attr.ToLower()}) ");
+      Console.Write($"(утке {id} {value}) ");
     }
 
     public void getInfo(bool shift = false)
@@ -231,7 +232,7 @@ namespace PracticeDucks
       return ducks.Count;
     }
 
-    /*public void getDuckCountBySkill()
+    public void getDuckCountBySkill()
     {
       Console.WriteLine($"Озеро {title} (ID: {id})");
       Dictionary<string, int> skills = new Dictionary<string, int>();
@@ -247,7 +248,7 @@ namespace PracticeDucks
       }
       foreach (var skill in skills)
         Console.WriteLine($"\tУмеет {skill.Key}: {skill.Value}");
-    }*/
+    }
 
     public int getDuckMaxID()
     {
@@ -407,7 +408,7 @@ namespace PracticeDucks
         {
           heroDuckLakeID = rnd.Next(0, lakes.Count);
           lakes[heroDuckLakeID].addDuck(new Duck(kind: "ГеройКряк", skill: "", isHero: true, days: 1, props: new string[,] { }));
-          Console.WriteLine($"На озере {lakes[heroDuckLakeID].title} (ID: {lakes[heroDuckLakeID].id}) появился ГеройКряк\nКогда ее поймают все утки с ферм будут освобождены...");
+          Console.WriteLine($"!! ВНИМАНИЕ !!\nНа озере {lakes[heroDuckLakeID].title} (ID: {lakes[heroDuckLakeID].id}) появился ГеройКряк\nКогда ее поймают все утки с ферм будут освобождены...");
           heroDuck = true;
         }
 
@@ -421,7 +422,7 @@ namespace PracticeDucks
               if (farms[a].lake.ducks[b].isDuckHero() && farms[a].lake.ducks[b].lastFarmID != -1 && farms[a].lake.ducks[b].days != 0)
               {
                 Console.WriteLine("Освобождаются все утки с ферм...");
-                d = farms[a].lake.getDuckObjectByID(farms[a].lake.ducks[b].id);
+                d = farms[a].lake.ducks[b];
                 for (int i = 0; i < farms.Count; i++)
                 {
                   for (int j = farms[i].lake.ducks.Count - 1; j >= 0; j--)
