@@ -116,7 +116,6 @@ namespace PracticeDucks
     public string title;
     public List<int> allowKinds = new List<int>();
     public string[,] skillsForJailbreak;
-    public Dictionary<string, string> methods = new Dictionary<string, string>();
     public List<Duck> ducks = new List<Duck>();
 
     public Lake(string title, int[] kindsID, string[,] skills)
@@ -305,8 +304,8 @@ namespace PracticeDucks
   {
     static void Main(string[] args)
     {
-      //bool heroDuck = false;
-      //int heroDuckLakeID = 0;
+      bool heroDuck = false;
+      int heroDuckLakeID = 0;
       const int COUNT_DAYS = 9;
       const int COUNT_DUCKS = 97;
 
@@ -403,7 +402,7 @@ namespace PracticeDucks
         }
         currentFarmID.getInfo();
 
-        /*int chance = rnd.Next(0, 3);
+        int chance = rnd.Next(0, 3);
         if (chance == 0 && !heroDuck)
         {
           heroDuckLakeID = rnd.Next(0, lakes.Count);
@@ -429,7 +428,7 @@ namespace PracticeDucks
                   {
                     Duck duckTemp = farms[i].lake.ducks[j];
                     if (duckTemp.homeID != 0)
-                      lakes[duckTemp.homeID].addDuck(duckTemp);
+                      lakes[duckTemp.homeID - 1].addDuck(duckTemp);
                     else
                     {
                       int rndJBLakeID = rnd.Next(0, lakes.Count);
@@ -449,7 +448,7 @@ namespace PracticeDucks
               }
             }
           }
-        }*/
+        }
 
         Console.WriteLine("\n____________________________________________________\n");
         
@@ -476,7 +475,7 @@ namespace PracticeDucks
             Duck duck = currentFarmLake.getDuckObjectByID(randomDuckID);
             if (duck.homeID != 0)
             {
-              lakes[duck.homeID].addDuck(duck);
+              lakes[duck.homeID - 1].addDuck(duck);
               Console.WriteLine($" в озеро ID: {duck.homeID}");
             }
             else
