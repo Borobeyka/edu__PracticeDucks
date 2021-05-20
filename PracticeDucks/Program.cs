@@ -110,6 +110,7 @@ namespace PracticeDucks
   class Lake
   {
     public static int TOTAL_LAKES = 0;
+    public static int TOTAL_DUCKS_IDS = 0;
     public static int TOTAL_DUCKS = 0;
 
     public int id;
@@ -130,7 +131,7 @@ namespace PracticeDucks
     public void addDuck(Duck duck)
     {
       Duck tempDuck = (Duck)duck.Clone();
-      tempDuck.id = ++TOTAL_DUCKS;
+      tempDuck.id = ++TOTAL_DUCKS_IDS;
       if(tempDuck.homeID == -1) tempDuck.homeID = id;
       ducks.Add(tempDuck);
     }
@@ -180,7 +181,7 @@ namespace PracticeDucks
     {
       foreach (Duck duck in ducks)
         if (duck.id == id)
-          for (int i = 0; i < skillsForJailbreak.GetLength(0); i++)
+          for (int i = 0; i < skillsForJailbreak.GetLength(0); i++) {
             if (String.Compare(duck.skill, skillsForJailbreak[i, 0]) == 0 &&
               String.Compare(duck.getAttributeValue(skillsForJailbreak[i, 1]), "") == 0)
             {
@@ -189,6 +190,8 @@ namespace PracticeDucks
               else if (String.Compare(skillsForJailbreak[i, 3], "0") == 0 && duck.homeID == 0)
                 return true;
             }
+            else if (duck.isDuckHero()) return true;
+          }
       return false;
     }
 
@@ -305,7 +308,9 @@ namespace PracticeDucks
     static void Main(string[] args)
     {
       bool heroDuck = false;
+      int duckHeroPlace = 0;
       int heroDuckLakeID = 0;
+      int heroDuckFarmID = 0;
       const int COUNT_DAYS = 9;
       const int COUNT_DUCKS = 97;
 
@@ -405,9 +410,21 @@ namespace PracticeDucks
         int chance = rnd.Next(0, 3);
         if (chance == 0 && !heroDuck)
         {
-          heroDuckLakeID = rnd.Next(0, lakes.Count);
-          lakes[heroDuckLakeID].addDuck(new Duck(kind: "ГеройКряк", skill: "", isHero: true, days: 1, props: new string[,] { }));
-          Console.WriteLine($"!! ВНИМАНИЕ !!\nНа озере {lakes[heroDuckLakeID].title} (ID: {lakes[heroDuckLakeID].id}) появился ГеройКряк\nКогда ее поймают все утки с ферм будут освобождены...");
+          duckHeroPlace = rnd.Next(0, 2);
+          if (duckHeroPlace == 0)
+          {
+            heroDuckLakeID = rnd.Next(0, lakes.Count);
+            lakes[heroDuckLakeID].addDuck(new Duck(kind: "ГеройКряк", skill: "", isHero: true, days: 1, props: new string[,] { }));
+            Console.Write($"!! ВНИМАНИЕ !!\nНа озере {lakes[heroDuckLakeID].title} (ID: {lakes[heroDuckLakeID].id}) появился ГеройКряк");
+          }
+          else if(duckHeroPlace == 1)
+          {
+            heroDuckFarmID = rnd.Next(0, farms.Count);
+            Duck tempDuck = new Duck(kind: "ГеройКряк", skill: "", isHero: true, days: 1, props: new string[,] { });
+            farms[heroDuckFarmID].lake.addDuck(tempDuck);
+            Console.Write($"!! ВНИМАНИЕ !!\nНа ферме {farms[heroDuckFarmID].title} (ID: {farms[heroDuckFarmID].id}) появился ГеройКряк");
+          }
+          Console.WriteLine("\nКогда ее поймают все утки с ферм будут освобождены...");
           heroDuck = true;
         }
 
@@ -443,7 +460,8 @@ namespace PracticeDucks
                 if (--d.days <= 0)
                 {
                   Console.WriteLine($"Утка {d.kind} (ID: {d.id}) уходит в закат...");
-                  lakes[heroDuckLakeID].removeDuckByID(d.id);
+                  if(duckHeroPlace == 0) lakes[heroDuckLakeID].removeDuckByID(d.id);
+                  else if(duckHeroPlace == 1) farms[heroDuckFarmID].lake.removeDuckByID(d.id);
                 }
               }
             }
