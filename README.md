@@ -9,8 +9,8 @@
 
 ### Скриншоты программы
 
-![1 день](https://github.com/Borobeyka/PracticeDucks/blob/master/images/1.jpg)
-![2 день](https://github.com/Borobeyka/PracticeDucks/blob/master/images/2.jpg)
-![3 день](https://github.com/Borobeyka/PracticeDucks/blob/master/images/3.jpg)
-![4 день](https://github.com/Borobeyka/PracticeDucks/blob/master/images/4.jpg)
-![5 день](https://github.com/Borobeyka/PracticeDucks/blob/master/images/5.jpg)
+[](https://github.com/Borobeyka/PracticeDucks/blob/master/images/1.jpg)
+[](https://github.com/Borobeyka/PracticeDucks/blob/master/images/2.jpg)
+[](https://github.com/Borobeyka/PracticeDucks/blob/master/images/3.jpg)
+[](https://github.com/Borobeyka/PracticeDucks/blob/master/images/4.jpg)
+[](https://github.com/Borobeyka/PracticeDucks/blob/master/images/5.jpg)
