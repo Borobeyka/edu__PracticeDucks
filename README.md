@@ -5,7 +5,6 @@
 
 
 ### ✔️ Условие задания представлено [здесь](https://github.com/Borobeyka/PracticeDucks/blob/master/Task/Пояснение%20к%20заданию%20на%20практику_критерии%20оценки.pdf), [условие моего варианта](https://github.com/Borobeyka/PracticeDucks/blob/master/Task/ВАРИАНТ%20%23144.txt)
-### ✔️ Геймплей представлен GIFкой, представленной ниже.
 
 ### Скриншоты программы
 
